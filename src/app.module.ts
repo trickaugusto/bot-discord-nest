@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { NecordModule } from 'necord';
+import { environment } from './environments/environments';
+import { AppUpdate } from './app.update';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [NecordModule.forRoot(environment.discord)],
+  controllers: [],
+  providers: [AppUpdate],
 })
 export class AppModule {}
