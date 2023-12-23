@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "ISC",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -13,12 +13,14 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:all": "jest --watchAll",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+
+    "test": "jest --silent --colors --noStackTrace --passWithNoTests",
+    "test:unit": "npm test -- --watch jest-unit-config.js",
+    "test:integration": "npm test -- --watch jest-integrationconfig.js",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage",
+
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -49,7 +51,8 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "husky": "^8.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -67,7 +70,11 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "roots": ["<rootDir>/test"],
-    "modulePaths": ["<rootDir>/src"]
-   }
+    "roots": [
+      "<rootDir>/test"
+    ],
+    "modulePaths": [
+      "<rootDir>/src"
+    ]
+  }
 }
